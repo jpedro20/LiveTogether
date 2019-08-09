@@ -1,0 +1,31 @@
+<div class="header py-4">
+    <div class="container">
+        <div class="d-flex">
+            <a routerLink="/dashboard" class="header-brand">
+                <!--Set logo src -->
+                <img src="assets/img/logo/livetogether.svg" class="header-brand-img" alt="LiveTogether">
+            </a>
+            <div class="d-flex order-lg-2 ml-auto">
+                <div class="dropdown">
+                    <a routerLink="" class="nav-link pr-o leading-none" data-toggle="dropdown">
+                        <span class="avatar"></span>
+                        <span class="ml-2 d-none d-lg-block">
+                            <span class="text-default">{{ name }}</span>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow" x-placement="bottom-end" style="position: absolute; transform: translate3d(-56px, 32px, 0px); top: 0px; left: 0px; will-change: transform;">
+                        <a routerLink="" class="dropdown-item">
+                            <i class="dropdown-icon fe fe-user"></i> Profile
+                        </a>
+                        <a routerLink="" class="dropdown-item" (click)="signOut()">
+                            <i class="dropdown-icon fe fe-log-out"></i> Sign out
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <a routerLink="" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
+                <span class="header-toggler-icon"></span>
+            </a>
+        </div>
+    </div>
+</div>

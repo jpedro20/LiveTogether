@@ -1,4 +1,5 @@
-using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using LiveTogether.Models;
 using LiveTogether.Utils.Security;
 
@@ -6,8 +7,8 @@ namespace LiveTogether.Data.Repositories
 {
     public interface IUserRepository
     {
-        User Authenticate(string username, string password);
-        User GetById(int id);
+        Task<User> Authenticate(string username, string password);
+        Task<User> GetById(int id);
     }
 
 
@@ -21,18 +22,18 @@ namespace LiveTogether.Data.Repositories
         }
 
 
-        public User GetById(int id)
+        public async Task<User> GetById(int id)
         {
-            return _context.Users.Find(id);
+            return await _context.Users.FindAsync(id);
         }
 
-        public User Authenticate(string username, string password)
+        public async Task<User> Authenticate(string username, string password)
         {
             if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) {
                 return null;
             }
 
-            var user = _context.Users.SingleOrDefault(u => u.Username == username);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
 
             if(user == null) {
                 return null;

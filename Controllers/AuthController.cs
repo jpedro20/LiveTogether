@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
@@ -26,9 +27,9 @@ namespace LiveTogether.Controllers
 
 
         [HttpPost("[action]")]
-        public IActionResult Login([FromBody]AuthDto authUser)
+        public async Task<IActionResult> Login([FromBody]AuthDto authUser)
         {
-            var user = _userRep.Authenticate(authUser.Username, authUser.Password);
+            var user = await _userRep.Authenticate(authUser.Username, authUser.Password);
 
             if(user == null) {
                 return Unauthorized();

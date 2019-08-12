@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
+using AutoMapper;
 using LiveTogether.Extensions;
 using LiveTogether.Utils.Configuration;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 namespace LiveTogether
 {
@@ -38,6 +39,8 @@ namespace LiveTogether
             services.ConfigureAuthentication(appSettings);
 
             services.ConfigureRepositories();
+
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

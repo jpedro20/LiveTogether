@@ -16,20 +16,20 @@ namespace LiveTogether.Controllers
     public class AuthController : Controller
     {
         private readonly AppSettings _appSettings;
-        private readonly IUserRepository _userRep;
+        private readonly IUsersRepository _usersRep;
 
 
-        public AuthController(IUserRepository userRep, IOptions<AppSettings> appSettings)
+        public AuthController(IUsersRepository usersRep, IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
-            _userRep = userRep;
+            _usersRep = usersRep;
         }
 
 
         [HttpPost("[action]")]
         public async Task<IActionResult> Login([FromBody]AuthDto authUser)
         {
-            var user = await _userRep.Authenticate(authUser.Username, authUser.Password);
+            var user = await _usersRep.Authenticate(authUser.Username, authUser.Password);
 
             if(user == null) {
                 return Unauthorized();
@@ -46,7 +46,7 @@ namespace LiveTogether.Controllers
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.UtcNow.AddDays(3),
                 SigningCredentials = signinCredentials
             };
 

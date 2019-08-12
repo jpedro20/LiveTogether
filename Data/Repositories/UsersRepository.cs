@@ -5,18 +5,18 @@ using LiveTogether.Utils.Security;
 
 namespace LiveTogether.Data.Repositories
 {
-    public interface IUserRepository
+    public interface IUsersRepository
     {
         Task<User> Authenticate(string username, string password);
         Task<User> GetById(int id);
     }
 
 
-    public class UserRepository : IUserRepository
+    public class UsersRepository : IUsersRepository
     {
-        private LiveTogetherContext _context;
+        private readonly LiveTogetherContext _context;
 
-        public UserRepository(LiveTogetherContext context)
+        public UsersRepository(LiveTogetherContext context)
         {
             _context = context;
         }

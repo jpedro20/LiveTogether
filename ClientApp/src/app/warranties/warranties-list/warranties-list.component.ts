@@ -4,6 +4,8 @@ import { WarrantiesService } from 'src/app/_services/warranties.service';
 import { Warranty } from 'src/app/_models/warranty';
 import { Subject } from 'rxjs';
 
+import * as moment from 'moment';
+
 
 @Component({
     selector: 'app-warranties-list',
@@ -16,19 +18,9 @@ export class WarrantiesListComponent implements OnInit, OnDestroy
     dtTrigger: Subject<any> = new Subject();
 
     warranties: Warranty[] = [];
-    currentDate: Date;
-    nextMonthDate: Date;
 
-    constructor(private _warrantiesService: WarrantiesService) {
-        let now: string = new Date().toLocaleDateString();
-
-        this.currentDate = new Date(now);
-
-        this.nextMonthDate = new Date(now);
-        this.nextMonthDate.setMonth(this.currentDate.getMonth() + 1);
-    }
+    constructor(private _warrantiesService: WarrantiesService) {}
     
-
     ngOnInit(): void {
         this.dtOptions = {
             pageLength: 10,
@@ -54,16 +46,24 @@ export class WarrantiesListComponent implements OnInit, OnDestroy
     }
 
     isWarrantyExpired(expirationDate: string): boolean {
-        return new Date(expirationDate).getTime() < this.currentDate.getTime();
+        return moment(expirationDate).isBefore(moment().startOf('day'));
     }
 
     isWarrantyDueIn(expirationDate: string): boolean {
-        return new Date(expirationDate).getTime() < this.nextMonthDate.getTime();
+        return moment(expirationDate).isSameOrBefore(moment().startOf('day').add(1, 'M'));
     }
 
     calculateWarrantyDueIn(expirationDate: string): string {
-        let expDate = new Date(expirationDate);
-        let diffDays = Math.round((expDate.getTime() - this.currentDate.getTime())/(1000*60*60*24)) + 1;
+        let expDate = moment(expirationDate);
+        let nowDate = moment().startOf('day');
+
+        let diffWeeks = expDate.diff(nowDate, 'weeks');
+
+        if(diffWeeks > 0) {
+            return diffWeeks + (diffWeeks === 1 ? ' week' : ' weeks');
+        }
+
+        let diffDays = expDate.diff(nowDate, 'days') + 1;
 
         return diffDays + (diffDays === 1 ? ' day' : ' days');
     }

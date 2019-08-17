@@ -12,7 +12,7 @@ namespace LiveTogether.Models
 
         public string StoreAddress { get; set; }
 
-        public DateTime PhurcaseDate { get; set; }
+        public DateTime? PhurcaseDate { get; set; }
 
         public DateTime ExpirationDate { get; set; }
 

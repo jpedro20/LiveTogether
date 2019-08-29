@@ -9,5 +9,6 @@ namespace LiveTogether.Data
 
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Warranty> Warranties { get; set; }
     }
 }

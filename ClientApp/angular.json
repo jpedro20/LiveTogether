@@ -28,7 +28,8 @@
             ],
             "scripts": [
               "./node_modules/tabler-ui/dist/assets/js/vendors/jquery-3.2.1.min.js",
-              "./node_modules/tabler-ui/dist/assets/js/vendors/bootstrap.bundle.min.js"
+              "./node_modules/tabler-ui/dist/assets/js/vendors/bootstrap.bundle.min.js",
+              "./node_modules/tabler-ui/dist/assets/plugins/datatables/datatables.min.js"
             ]
           },
           "configurations": {

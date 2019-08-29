@@ -1,0 +1,65 @@
+<div class="page-header page-header-list-add">
+    <h1 class="page-title">Warranties</h1>
+</div>
+<div class="row mb-4">
+    <div class="col-12">
+        <a routerLink="/warranties/create" class="btn btn-sm btn-pill btn-primary float-right" role="button">
+            <i class="fa fa-plus mr-2"></i>Add warranty
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="table-responsive">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover card-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Store</th>
+                            <th>Phurcase Date</th>
+                            <th>Expiration Date</th>
+                            <th>State</th>
+                            <th class="no-sort"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let warranty of warranties">
+                            <td>{{ warranty.product }}</td>
+                            <td>{{ warranty.store }}</td>
+                            <td>{{ warranty.phurcaseDate | date:'yyyy-MM-dd' }}</td>
+                            <td>{{ warranty.expirationDate | date:'yyyy-MM-dd' }}</td>
+                            <td>
+                                <ng-container *ngIf="isWarrantyExpired(warranty.expirationDate);else warrantyDueIn">
+                                    <span class="status-icon bg-danger"></span>
+                                    Expired
+                                </ng-container>
+                                <ng-template #warrantyDueIn>
+                                    <ng-container *ngIf="isWarrantyDueIn(warranty.expirationDate);else warrantyActive">
+                                        <span class="status-icon bg-warning"></span>
+                                        Due in {{ calculateWarrantyDueIn(warranty.expirationDate) }}
+                                    </ng-container>
+                                </ng-template>
+                                <ng-template #warrantyActive>
+                                    <span class="status-icon bg-success"></span>
+                                    Active
+                                </ng-template>
+                            </td>
+                            <td class="text-right">
+                                <a [routerLink]="['/warranties', warranty.id]" class="icon" title="View">
+                                    <i class="fe fe-eye"></i>
+                                </a>
+                                <a [routerLink]="['/warranties/edit', warranty.id]" class="icon ml-3" title="Edit">
+                                    <i class="fe fe-edit"></i>
+                                </a>
+                                <a [routerLink]="['/warranties/delete', warranty.id]" class="icon ml-3" title="Remove">
+                                    <i class="fe fe-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

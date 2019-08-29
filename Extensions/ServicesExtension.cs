@@ -37,7 +37,7 @@ namespace LiveTogether.Extensions
                 {
                     OnTokenValidated = context =>
                     {
-                        var userRep = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
+                        var userRep = context.HttpContext.RequestServices.GetRequiredService<IUsersRepository>();
                         var userId = int.Parse(context.Principal.Identity.Name);
                         var user = userRep.GetById(userId);
 
@@ -63,7 +63,8 @@ namespace LiveTogether.Extensions
 
         public static void ConfigureRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IWarrantiesRepository, WarrantiesRepository>();
         }
     }
 }

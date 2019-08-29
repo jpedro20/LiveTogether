@@ -1,1 +1,18 @@
 @import "~tabler-ui/dist/assets/css/dashboard.css";
+
+
+/*
+ *  DataTables CSS Properties
+ */
+
+.dataTables_filter_left {
+    float: left;
+}
+
+
+/*
+ *  Custom CSS Properties
+ */
+.page-header-list-add {
+    margin-bottom: 0;
+}

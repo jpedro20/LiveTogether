@@ -57,10 +57,10 @@ export class WarrantiesListComponent implements OnInit, OnDestroy
         let expDate = moment(expirationDate);
         let nowDate = moment().startOf('day');
 
-        let diffWeeks = expDate.diff(nowDate, 'weeks');
+        let diffWeeks = expDate.diff(nowDate, 'weeks') + 1;
 
-        if(diffWeeks > 0) {
-            return diffWeeks + (diffWeeks === 1 ? ' week' : ' weeks');
+        if(diffWeeks > 1) {
+            return `${diffWeeks} weeks`;
         }
 
         let diffDays = expDate.diff(nowDate, 'days') + 1;

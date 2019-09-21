@@ -8,6 +8,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 
+import { environment } from 'src/environments/environment';
+import { Environment } from './_config/environment';
+
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './_layout/pages/pagenotfound/pagenotfound.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -37,6 +40,7 @@ import { WarrantiesListComponent } from './warranties/warranties-list/warranties
         DataTablesModule
     ],
     providers: [
+        { provide: Environment, useValue: environment },
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
     ],
